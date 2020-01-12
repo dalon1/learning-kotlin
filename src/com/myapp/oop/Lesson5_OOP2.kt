@@ -113,6 +113,62 @@ class IOs(name:String): MobileOs(name) {
     }
 }
 
+/**
+ * 5. Using visibility modifiers
+ * Affects: classes, constructors, properties, functions, interfaces and setters.
+ * public, private, protected and internal
+ */
+
+/**
+ * 5.1. Visibility inside a package (a collection of related classes, functions, properties.)
+ * public - everywhere
+ * private - inside the file that contains the declaration
+ * internal - visible inside the same module
+ * protected - not applicable for packages
+ */
+
+/**
+ * 5.2. Visibility inside classes and interfaces.
+ * public - everyone
+ * private - inside the class only
+ * internal - everyone inside the module
+ * protected - visible to the class and its subclasses
+ */
+
+open class Parent() {
+    init {
+        println("learning about visibility!")
+    }
+    var a: String = "Everyone can see me!" // public default
+    private var b: String = "No one can see me!" // Not visible outside class
+    internal var c: String = "Only files inside the same module can see me"
+    protected var d: String = "the base and derived classes can see me!" // Not visible outside class
+}
+class Child: Parent() {
+    fun showMe() {
+        println("The fields: \n\"$a\", \n\"$c\" and \n\"$d\" \nare visible ")
+    }
+    fun dontShowMe() {
+        println("The fields b arent visible to me")
+    }
+}
+
+/**
+ * 5.3 Visibility for constructors.
+ * Default is public.
+ * To change the scope, you need to add the word `constructor`
+ */
+class Charger private constructor(var isOn: Boolean) {
+    init {
+        println("I am just a charger!")
+    }
+    fun isWorking() : String = if (isOn) "This is working" else "It is not working"
+}
+
+/**
+ * 
+ */
+
 fun main(args : Array<String>) {
     /**
      * 1. Inheritance in action
@@ -157,4 +213,19 @@ fun main(args : Array<String>) {
     Android("Android").downloadApp()
     println()
     IOs("iOS").downloadApp()
+
+    /**
+     * 5. Learning about visibility inside classes and interfaces
+     */
+    println()
+    var p = Parent()
+    var c = Child()
+    c.showMe()
+    c.dontShowMe()
+
+    println()
+    /**
+     * 5.3 Because Charger's constructor is private, therefore it can't be instantiated
+     */
+    //var charger: Charger = Charger(true)
 }
