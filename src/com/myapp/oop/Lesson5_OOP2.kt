@@ -166,8 +166,30 @@ class Charger private constructor(var isOn: Boolean) {
 }
 
 /**
- * 
+ * 6. Abstract classes
+ * Abstract class can't be instantiated - can't create objects from an abstract class.
+ * The `abstract` keyword - same behavior as in Java. Used to make a class abstract.
+ * Default, all members and properties of an abstract class are non-abstract.
+ * NOTE: In Kotlin, abstract classes are always `open`. No need to write the keyword `open`.
+ * Abstract classes are similar to interfaces but interfaces can't store state.
  */
+abstract class Job(protected var id:Int) {
+    init { println("I am just a job!") }
+    abstract fun showDescription()
+}
+
+ class SoftwareJob(id:Int = 100):Job(id) {
+     override fun showDescription() {
+         println("For job $id: You need to know how to write and read code!")
+     }
+ }
+
+class MechanicJob(id:Int = 200):Job(id) {
+    override fun showDescription() {
+        println("For job $id: You need to know to put together mechanic pieces and build stuff!")
+    }
+}
+
 
 fun main(args : Array<String>) {
     /**
@@ -219,6 +241,7 @@ fun main(args : Array<String>) {
      */
     println()
     var p = Parent()
+    println()
     var c = Child()
     c.showMe()
     c.dontShowMe()
@@ -228,4 +251,14 @@ fun main(args : Array<String>) {
      * 5.3 Because Charger's constructor is private, therefore it can't be instantiated
      */
     //var charger: Charger = Charger(true)
+
+    /***
+     * 6. Using abstract classes
+     */
+    println()
+    var dev:SoftwareJob = SoftwareJob()
+    dev.showDescription()
+    println()
+    var mech:MechanicJob = MechanicJob(201)
+    mech.showDescription()
 }
